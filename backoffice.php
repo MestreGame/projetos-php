@@ -14,17 +14,15 @@
     <div class="container-home">
     <!-- TOPO SEM MOBILE -->
         <div class="topo">
+        <?php
+                if ($nomeusuario != null) {
+                ?>
+              <label>BEM VINDO <?= strtoupper($nomeusuario)?></label>
             <?php
-            if($nomeusuario != null)
-            ?>
-            <li class="perfil"><label>Bem Vindo <?= $nomeusuario?></label></li>
-            <?php
-            else
-            {
-                echo("<script>windows.alert('USUARIOS NAO LOGADO');
-                window.location.href='login.php';</script>");
-
-            }
+                }
+                else {
+                    echo"<script>window.alert('USUARIO NÃO LOGADO');window.location.href='login.php';</script>";
+                }
             ?>
 
             <label>Bem Vindo</label>
@@ -35,8 +33,7 @@
   
         <!-- BOTÕES DE MENU -->
          <div class="menu">
-            <a href="usuario-cadastro.php"><span class="tooltiptext">CADASTRAR USUARIOS <img src="./incons/user-add.png"></a></span>
-                                  
+            <a href="usuario-cadastro.php"><span class="tooltiptext">CADASTRAR USUARIOS <img src="./incons/user-add.png"></a></span>                      
             <a href="usuario-lista.php"><span class="tooltiptext">LISTAR USUARIOS</span><img src=".incons/user-find.png"></a>
             <a href="produto-cadastro.php"><span class="tooltiptext">CADASTRAR PRODUTO</span> <img src=".incons/box.png"></a>
             <a href="produto-lista.php"><span class="tooltiptext">LISTAR PRODUTO</span><img src=".incons/gantt.png"></a>

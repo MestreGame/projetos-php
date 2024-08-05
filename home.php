@@ -14,13 +14,13 @@
     <div class="container-home">
     <!-- TOPO SEM MOBILE -->
         <div class="topo">
-            <label>Bem Vindo</label>
-            <a href="logout.php"><img src='incons/Exit-02-WF-256.png'width="50" height="50">
+        <label>Bem Vindo</label>
+        <a href="logout.php">Sair</a>
+            
         </div>
   
         <!-- BOTÕES DE MENU -->
-         <div class="menu">
-            
+         <div class="menu">   
         <a href="usuario-cadastro.php"><span class="tooltiptext">CADASTRAR USUARIOS <img src="./incons/user-add.png" width="150" height="150"></a></span>                    
         <a href="usuario-lista.php"><span class="tooltiptext">LISTAR USUARIOS</span><img src="./incons/user-find.png"width="150" height="150" ></a>
         <a href="produto-cadastro.php"><span class="tooltiptext">CADASTRAR PRODUTO</span> <img src="./incons/box.png"width="150" height="150"></a>

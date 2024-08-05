@@ -4,7 +4,6 @@ include("conectadb.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $login = $_POST['txtlogin'];
-    $senha = $_POST['txtsenha'];
     $email = $_POST['txtemail'];
 
     // VALIDA SE USUARIO A CADASTRAR EXISTE

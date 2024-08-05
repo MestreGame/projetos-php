@@ -3,7 +3,7 @@ include('conectadb.php');
 
 //COLETA O VALOR ID LÁ DA URL
 $id = $_GET['id'];
-$sql =" SELECT  * FROM tb_usuarios WHERE use_id = $id";
+$sql =" SELECT  * FROM tb_cliente WHERE use_id = $id";
 $retorno = mysqli_query($link,$sql);
 while($tbl = mysqli_fetch_array($retorno)){
     $login = $tbl[0];
@@ -30,9 +30,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     exit();
 }
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -41,33 +38,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <link rel="stylesheet" href="css/estilo.css">
     <link href="https://fonts.cdnfonts.com/css/curely" rel="stylesheet">
                 
-    <title>ALETERÇÃO DE USUSARIO</title>
+    <title>CLIENTES ALETERÇÃO</title>
 </head>
 <body>
-    <div class="container-global">
-    <form class="formulario" action="login.php" method="post">
-    <label>LOGIN</label>
-    <input type="hidden" name="id" value="<?= $id?>">
-    <input type="text" name="txtlogin"value="<?=$login?> "placeholder="Digite seu login" required>
-    <br>
-    <label>SENHA</label>
-    <input type="password" name="txtsenha" value="<?=$senha?> "placeholder="Digite sua senha" required>
-    <br>
-    <label>EMAIL</label>
-    <input type="email" name="txtlogin" value="<?=$email?> "placeholder="Digite seu email" required>
-    <br>
-    <br>
-    <input type="submit" value="ACESSAR">
-    
-     <!-- SELETOR DE ATIVO E INATIVO -->
-     <input type="radio" name="status" value="1" <?= $status == '1'?"checked" : ""?>>ATIVO
-                <input type="radio" name="status" value="0" <?= $status == '0'?"checked" : ""?>>INATIVO
-                <br>
-                <br>
-                <input type="submit" value="CONFIRMAR">
-    </form>
 
-    </div>
-    
 </body>
 </html>
