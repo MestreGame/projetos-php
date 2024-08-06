@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+
 include("conectadb.php");
 
-if($_SERVER['REQUEST_METHOD']== 'POST'){
-    $login = $_POST['txtlogin'];
-    $senha = $_POST['txtsenha'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $login = isset($_POST['txtlogin']) ? $_POST['txtlogin'] : '';
+    $senha = isset($_POST['txtsenha']) ? $_POST['txtsenha'] : '';
 
     // COMEÇA VALIDAR BANCO DE DADOS
     $sql = "SELECT COUNT(usu_id) FROM tb_usuarios
@@ -14,27 +15,25 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
     // RETORNO DO BANCO
     $retorno = mysqli_query($link, $sql);
 
-  
+    $contagem = mysqli_fetch_array($retorno)[0];
 
-    $contagem = mysqli_fetch_array($retorno) [0];
-
-    // VERIFICA SE NATAN EXISTE
-    if($contagem == 1){
+    // VERIFICA SE O USUÁRIO EXISTE
+    if ($contagem == 1) {
         $sql = "SELECT usu_id, usu_login FROM tb_usuarios WHERE usu_login = '$login' AND usu_senha = '$senha'";
-       $retorno = mysqli_query($link,$sql);
-       //RETORNO O NOME DONATAN + ID DELE
-       while ($tbl = mysqli_fetch_array($retorno)){
-        $_SESSION['idusasrio']=$tql[0];
-        $_SESSION['nomeusuario']= $tql[1];
-       }
+        $retorno = mysqli_query($link, $sql);
+        // RETORNA O ID E O LOGIN DO USUÁRIO
+        while ($tbl = mysqli_fetch_array($retorno)) {
+            $_SESSION['idusario'] = $tbl[0];
+            $_SESSION['nomeusuario'] = $tbl[1];
+        }
 
-        echo"<script>window.location.href='home.php';</script>";
+        echo "<script>window.location.href='backoffice.php';</script>";
+    } else {
+        echo "<script>window.alert('USUARIO OU SENHA INCORRETOS');</script>";
     }
-    else{
-        echo"<script>window.alert('USUARIO OU SENHA INCORRETOS');</script>";
-    }
-
 }
+
+
 ?>
 
 <!DOCTYPE html>

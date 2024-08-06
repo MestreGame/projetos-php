@@ -1,5 +1,7 @@
 <?php
 // include ("header.php");
+session_start();
+$nomeusuario = $_SESSION['nomeusuario'];
 ?>
 
 <!DOCTYPE html>

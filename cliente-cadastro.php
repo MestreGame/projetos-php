@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 VALUES ('$nome', '$email', '$telefone', '$cpf', '1')";
         if (mysqli_query($link, $sql)) {
             echo "<script>window.alert('Cliente cadastrado com sucesso.');</script>";
-            echo "<script>window.location.href='sucesso.php';</script>";
+            echo "<script>window.location.href='login.php';</script>";
         } else {
             echo "<script>window.alert('Erro ao cadastrar cliente: " . mysqli_error($link) . "');</script>";
         }
