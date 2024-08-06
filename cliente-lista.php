@@ -3,6 +3,13 @@ include("conectadb.php");
 // include("header.php");
 
 
+// CONSULTA CLIENTES CADASTRADOS
+$sql = "SELECT cli_nome, cli_email,cli_cel,cli_cpf,cli_id, cli_status 
+        FROM tb_clientes WHERE cli_status = '1'";
+$retorno = mysqli_query($link, $sql);
+$status = '1';
+
+
 
 
 ?>
@@ -29,7 +36,6 @@ include("conectadb.php");
                 <th>EMAIL</th>
                 <th>TELEFONE</th>
                 <th>CPF</th>
-                <th>ID</th>
                 <th>STATUS</th>
                 <th>ALTERAR</th>
             </tr>
@@ -45,11 +51,9 @@ include("conectadb.php");
                     <td><?=$tbl[1]?></td> <!-- COLETA O EMAIL DO CLIENTE-->
                     <td><?=$tbl[2]?></td> <!-- COLETA O TELEFONE DO CLIENTE-->
                     <td><?=$tbl[3]?></td> <!-- COLETA O CPF DO CLIENTE-->
-                    <td><?=$tbl[4]?></td> <!-- COLETA O STATUS DO CLIENTE-->
-                
-                    <td><a href="cliente-lista.php?id=<?=$tbl[4]?>">
-                            <input type="button" value="ALTERAR">
-                        </a>
+                    <td><?=$tbl[5]?></td> <!-- COLETA O STATUS DO CLIENTE-->
+                    <td><a href="cliente-altera.php?id=<?=$tbl[4]?>">
+                            <input type="button" value="ALTERAR"></a>
                     </td>
                  </tr>
                  

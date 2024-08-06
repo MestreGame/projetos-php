@@ -3,7 +3,7 @@ include('conectadb.php');
 
 //COLETA O VALOR ID LÁ DA URL
 $id = $_GET['id'];
-$sql =" SELECT  * FROM tb_usuarios WHERE use_id = $id";
+$sql =" SELECT  * FROM tb_usuarios WHERE usu_id = $id";
 $retorno = mysqli_query($link,$sql);
 while($tbl = mysqli_fetch_array($retorno)){
     $login = $tbl[0];
