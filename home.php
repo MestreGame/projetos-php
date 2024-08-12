@@ -1,7 +1,12 @@
 <?php
 // include ("header.php");
-session_start();
-$nomeusuario = $_SESSION['nomeusuario'];
+if (isset($_SESSION['nomeusuario'])) {
+    $nomeusuario = $_SESSION['nomeusuario'];
+} else 
+{
+    $nomeusuario = "Guest";
+}
+
 ?>
 
 <!DOCTYPE html>
