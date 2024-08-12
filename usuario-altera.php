@@ -1,6 +1,6 @@
 <?php
 include('conectadb.php');
-
+include('topo.php');
 //COLETA O VALOR ID LÁ DA URL
 $id = $_GET['id'];
 $sql =" SELECT  * FROM tb_usuarios WHERE usu_id = $id";

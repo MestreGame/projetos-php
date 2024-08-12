@@ -1,5 +1,6 @@
 <?php
 include("conectadb.php");
+include('topo.php');
 // include("header.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" id="cpf" name="txtcpf" placeholder="000.000.000-00" maxlength="14" required >
             <br>
             <label>Telefone</label>
-            <input type="text" id="telefone" name="txttelefone" placeholder="(00) 00000-0000" maxlength="11" required>
+            <input type="text" id="telefone" name="txttelefone" placeholder="(00)00000-0000" maxlength="11" required>
             <br>
             <input type="submit" value="CADASTRAR CLIENTE">
         </form>

@@ -1,5 +1,6 @@
 <?php
 include("conectadb.php");
+include('topo.php');
 // include("header.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -39,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>CADASTRO DE USUARIO</title>
 </head>
 <body>
-<a href="backoffice.php"><img src="icons.old/arrowhead-left-01.png" width="16" height="16"></a>
+<a href="backoffice.php"><img src='icons.old/arrowhead-left-01.png' width="16" height="16"></a>
 
     <div class="container-global">
         

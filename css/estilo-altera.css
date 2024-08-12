@@ -16,7 +16,6 @@ body{
     text-align: center;
     flex-flow: column wrap;
     width: 300px;
-    height: 400px;
     background-color: #f2b705;
     border-radius: 20px;
     color: black;
@@ -36,14 +35,7 @@ body{
     margin-left: 23%;
     margin: 20px 0px 20px 23%
 }
-.bullets{
-    display: flex;
-    flex-flow: row;
-    justify-content: center;
-    width: auto;
-    height: 100px;
-    
-}
+
 
 /* CSS DO HOME */
 
@@ -54,7 +46,7 @@ body{
 .topo{
     display: flex;
     justify-content: space-between;
-    background-color: #e5e0d0;
+    background-color: #48aff3;
     height: 50px;
     width: auto;
     border-radius: 20px;
@@ -86,7 +78,7 @@ body{
 }
 
 .menu a{
-    background-color:#0824a1a6;
+    background-color: #328b8ba6;
     width: 300px;
     height: 300px;
     margin: 30px 15px 30px 15px;
