@@ -16,23 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $retorno = mysqli_query($link, $sql);
     $contagem = mysqli_fetch_array($retorno)[0];
 
-    if ($contagem == 0) {
-        // Inserir novo cliente
-        $sql = "INSERT INTO tb_clientes (cli_nome, cli_email, cli_cel, cli_cpf, cli_status)
-                VALUES ('$nome', '$email', '$telefone', '$cpf', '1')";
-        if (mysqli_query($link, $sql)) {
-            echo "<script>window.alert('Cliente cadastrado com sucesso.');</script>";
-            echo "<script>window.location.href='login.php';</script>";
-        } else {
-            echo "<script>window.alert('Erro ao cadastrar cliente: " . mysqli_error($link) . "');</script>";
-        }
-    } else {
-        echo "<script>window.alert('Cliente \"CLIENTE JÁ CADASTRADO\" já existe.');</script>";
+    if($contagem == 0){
+        $sql = "INSERT INTO tb_clientes(cli_cpf, cli_nome, cli_email, cli_cel, cli_status)
+        VALUES ('$cpf', '$nome', '$email', '$cel', '1')";
+        mysqli_query($link, $sql);
+        echo"<script>window.alert('CLIENTE CADASTRADO COM SUCESSO');</script>";
+        echo"<script>window.location.href='backoffice.php';</script>";
     }
-}
+    else if($contagem >= 1){
+        echo"<script>window.alert('CLIENTE JÁ EXISTENTE');</script>";
+    }
         
     
-    
+}
 
 
 
@@ -62,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="email" name="txtemail" placeholder="Digite seu email" required>
             <br>
             <label>CPF</label>
-            <input type="text" id="cpf" name="txtcpf" placeholder="000.000.000-00" maxlength="14" required >
+            <input type="text" id="cpf" name="txtcpf" placeholder="000.000.000-00" maxlength="14" oninput="formatarCPF(this)">  
             <br>
             <label>Telefone</label>
-            <input type="text" id="telefone" name="txttelefone" placeholder="(00)00000-0000" maxlength="11" required>
+            <input type="text" id="telefone" name="txttelefone" placeholder="(00)00000-0000" maxlength="15" required>
             <br>
             <input type="submit" value="CADASTRAR CLIENTE">
         </form>

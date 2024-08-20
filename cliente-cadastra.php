@@ -2,32 +2,28 @@
 include("conectadb.php");
 // include("header.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $cpf = $_POST['txtcpf'];
     $nome = $_POST['txtnome'];
     $email = $_POST['txtemail'];
-    $cpf = $_POST['txtcpf'];
-    $telefone = $_POST['txttelefone'];
-    // Consultar o banco de dados para verificar se o cliente já existe
-    $sql = "SELECT COUNT(cli_id) FROM tb_clientes WHERE cli_email = '$email' OR cli_cpf = '$cpf'";
-    $retorno = mysqli_query($link, $sql);
-    
-    // RETORNO DO BANCO
-    $retorno = mysqli_query($link, $sql);
-    $contagem = mysqli_fetch_array($retorno)[0];
+    $cel = $_POST['txtcel'];
 
-    if ($contagem == 0) {
-        // Inserir novo cliente
-        $sql = "INSERT INTO tb_clientes (cli_nome, cli_email, cli_telefone, cli_cpf, cli_status)
-                VALUES ('$nome', '$email', '$telefone', '$cpf', '1')";
-        if (mysqli_query($link, $sql)) {
-            echo "<script>window.alert('Cliente cadastrado com sucesso.');</script>";
-            echo "<script>window.location.href='sucesso.php';</script>";
-        } else {
-            echo "<script>window.alert('Erro ao cadastrar cliente: " . mysqli_error($link) . "');</script>";
-        }
-    } else {
-        echo "<script>window.alert('Cliente \"Natan\" já existe.');</script>";
+    $sql = "SELECT COUNT(cli_id) FROM tb_clientes WHERE cli_cpf = '$cpf' ";
+
+    $retorno = mysqli_query($link, $sql);
+    $contagem = mysqli_fetch_array($retorno) [0];
+
+    if($contagem == 0){
+        $sql = "INSERT INTO tb_clientes(cli_cpf, cli_nome, cli_email, cli_cel, cli_status)
+        VALUES ('$cpf', '$nome', '$email', '$cel', '1')";
+        mysqli_query($link, $sql);
+        echo"<script>window.alert('CLIENTE CADASTRADO COM SUCESSO');</script>";
+        echo"<script>window.location.href='backoffice.php';</script>";
     }
+    else if($contagem >= 1){
+        echo"<script>window.alert('CLIENTE JÁ EXISTENTE');</script>";
+    }
+
 }
         
     

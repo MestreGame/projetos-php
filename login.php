@@ -5,8 +5,8 @@ session_start();
 include("conectadb.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $login = isset($_POST['txtlogin']) ? $_POST['txtlogin'] : '';
-    $senha = isset($_POST['txtsenha']) ? $_POST['txtsenha'] : '';
+    $login = $_POST['txtlogin'];
+    $senha = $_POST['txtsenha'];
 
     // COMEÇA VALIDAR BANCO DE DADOS
     $sql = "SELECT COUNT(usu_id) FROM tb_usuarios

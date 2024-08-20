@@ -14,7 +14,8 @@ $nomeusuario = $_SESSION['nomeusuario'];
     <link rel="stylesheet" href="css/estilo.css">
     <title>HOME PRINCIPAL</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
+    
     <div class="container-home">
     <!-- TOPO SEM MOBILE -->
         <div class="topo">

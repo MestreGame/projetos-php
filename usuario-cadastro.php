@@ -7,23 +7,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $login = $_POST['txtlogin'];
     $email = $_POST['txtemail'];
 
-    // VALIDA SE USUARIO A CADASTRAR EXISTE
+    // COMEÇA VALIDAR BANCO DE DADOS
     $sql = "SELECT COUNT(usu_id) FROM tb_usuarios
-    WHERE usu_login = '$login' OR usu_email = '$email' ";
+    WHERE usu_login = '$login' AND usu_senha = '$senha' AND
+    usu_status = '1'";
     // RETORNO DO BANCO
     $retorno = mysqli_query($link, $sql);
+
     $contagem = mysqli_fetch_array($retorno) [0];
 
     // VERIFICA SE NATAN EXISTE
-    if($contagem == 0){
-        $sql = "INSERT INTO tb_usuarios(usu_login, usu_senha, usu_email, usu_status)
-        VALUES ('$login', '$senha', '$email', '1')";
-        mysqli_query($link, $sql);
-        echo"<script>window.alert('USUARIO CADASTRADO COM SUCESSO');</script>";
-        echo"<script>window.location.href='login.php';</script>";
+    if($contagem == 1){
+        $sql = "SELECT usu_id, usu_login FROM tb_usuarios
+        WHERE usu_login = '$login'AND usu_senha = '$senha'";
+        $retorno = mysqli_query($link, $sql);
+        //RETORNANDO O NOME DO NATAN + ID DELE
+        while($tbl = mysqli_fetch_array($retorno)){
+            $_SESSION['idusuario'] = $tbl[0];
+            $_SESSION['nomeusuario'] = $tbl[1];
+        }
+        echo"<script>window.location.href='backoffice.php';</script>";
     }
-    else if($contagem >= 1){
-        echo"<script>window.alert('USUARIO JÁ EXISTENTE');</script>";
+    else{
+        echo"<script>window.alert('USUARIO OU SENHA INCORRETOS');</script>";
     }
 
 }
