@@ -1,5 +1,5 @@
 body{
-    background-color: #020202;
+    background-color: #1f4eb3;
     
 }
 .fundo {
@@ -65,7 +65,7 @@ background-size: cover;
 .topo{
     display: flex;
     justify-content: space-between;
-    background-color: #000000;
+    background-color: #9ac372;
     height: 50px;
     width: auto;
     border-radius: 20px;

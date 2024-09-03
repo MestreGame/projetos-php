@@ -26,10 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
 
     if($contagem == 0){
         $sql = "INSERT INTO 
-        tb_produtos(pro_nome, pro_quantidade, pro_unidade, pro_preco, pro_status, pro_imagem)
+        tb_produtos(pro_id,pro_nome, pro_quantidade, pro_unidade, pro_preco, pro_status, pro_imagem)
         VALUES ('$nomeproduto', $quantidade, '$unidade', $preco, '1', '$imagem_base64')";
         // echo $imagem_base64;
-        $retorno = mysqli_query($link, $sql); #CRÉDITOS PARA RAFAEL BARBOSA GÊNIO E HUMILDE
+        $retorno = mysqli_query($link, $sql); 
+        #CRÉDITOS PARA RAFAEL BARBOSA GÊNIO E HUMILDE
 
         echo"<script>window.alert('PRODUTO CADASTRADO');</script>";
         echo"<script>window.location.href='produto-lista.php';</script>";
