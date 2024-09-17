@@ -86,9 +86,7 @@ $retorno = mysqli_query($link, $sqllistapro);
     <link rel="stylesheet" href="css/estilo.css">
     <title>VENDAS</title>
 </head>
-<body class="fundo" style="background-image: url(img/fundo.avif);">
-    
-</body>
+<body>
     <div class="container-global">
         
         <form class = "formulario" action="vendas.php" method="post">
@@ -112,7 +110,6 @@ $retorno = mysqli_query($link, $sqllistapro);
         </div> 
         <!-- TIRAR A DIV DE BAIO E FECHAR AQUI -->
                 <br>
-                <br>
         <div class="container-listaproduto">
             <table class="lista">
                 <tr>
@@ -126,7 +123,7 @@ $retorno = mysqli_query($link, $sqllistapro);
                 <?php
                     while($tbl = mysqli_fetch_array($retorno)){
                 ?>
-                <tr><!-- ABRIR A TR -->
+                <tr>    <!-- ABRIR A TR -->
                     <td><?=$tbl[0]?></td> <!--COLETA ID-->
                     <td><?=$tbl[1]?></td> <!--COLETA NOME-->
                     <td><?=$tbl[3]?></td> <!--COLETA QTD-->
@@ -134,7 +131,7 @@ $retorno = mysqli_query($link, $sqllistapro);
                     <td><img src='data:image/jpeg;base64,<?=$tbl[2]?>'
                     width="200" height="200"></td> <!--COLETA IMG-->
                     <td><a href="venda-deleta-item.php?id=<?=$tbl[6]?>">
-                    <input type="button" value="EXCLUIR">
+                        <input type="button" value="EXCLUIR">
                     </a>
                     </td>
                 </tr>  <!-- FECHAR A TR -->
@@ -148,14 +145,14 @@ $retorno = mysqli_query($link, $sqllistapro);
     
     <!-- FORMULARIO FINAL DE NOME E ENVIO -->
      <div class="container-global">
-        <form class="formulario" action="vendas-finalizar.php" method = "POST">
+        <form class="formulario" action="vendas-finalizar.php" method = "post"> <!-- mudar o nome da pag php -->
 
             <label>SELECIONE O CLIENTE</label>
                     <select name='nomecliente'>
                         <!-- PUXAR OS NOMES DOS CLIENTES -->
                         <?php while ($tblcli = mysqli_fetch_array($retornocli)){
                         ?>
-                            <option value="<?=$tblcli[0]?>">
+                            <option value="<?=$tblcli[0]?>">   <!--faltou o = dps do ?  -->
                             <?=strtoupper($tblcli[1])?>
                             </option>
                         <?php

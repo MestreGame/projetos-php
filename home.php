@@ -17,7 +17,7 @@ if (isset($_SESSION['nomeusuario'])) {
     <link rel="stylesheet" href="css/estilo.css">
     <title>HOME PRINCIPAL</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
     <div class="container-home">
     <!-- TOPO SEM MOBILE -->
         <div class="topo">
@@ -35,6 +35,8 @@ if (isset($_SESSION['nomeusuario'])) {
         <a href="cliente-cadastro.php"><span class="tooltiptext">CADASTRAR CLIENTE</span><img src="./incons/customer.png"width="150" height="150"></a>
         <a href="cliente-lista.php"><span class="tooltiptext">LISTAR CLIENTE</span><img src="./incons/people.png"width="150" height="150"></a>
         <a href="vendas.php"><span class="tooltiptext">VENDAS</span><img src="./incons/shopping-cart-04.png"width="150" height="150"></a>
+        <a href="vendas-lista.php"><span class="tooltiptext"> LISTA VENDAS</span><img src="./incons/shopping-cart-04.png"width="150" height="150"></a>
+
         
          </div>
     </div>

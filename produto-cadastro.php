@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
     <link rel="stylesheet" href="css/estilo.css">
     <title>CADASTRA PRODUTOS</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
     <div class="container-global">
         <form class="formulario" action="produto-cadastro.php" method="post" enctype="multipart/form-data">
             <label>NOME PRODUTO</label>

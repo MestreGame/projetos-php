@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     <title>PRODUTO LISTA</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
    
     <div class="container-listaproduto">
        <!-- LISTAR ATIVOS E INATIVOS -->

@@ -1,8 +1,8 @@
 <?php
-include("conectadb.php");
+include ("conectadb.php");
 
-$iddiv=$_GET['id'];
-$sqldeleta= "DELETA FROM tb_item_venda WHERE iv_id = $iddiv";
-$resultado= mysqli_query($link,$sqldeleta);
+$idiv = $_GET['id'];
+$sqldeleta = "DELETE FROM tb_item_venda WHERE iv_id = $idiv";
+$resultado = mysqli_query($link,$sqldeleta);
 
-header("Location:vendas.php")
+header("Location: vendas.php");

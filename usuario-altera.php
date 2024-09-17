@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
     <title>ALETERÇÃO DE USUSARIO</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
     <div class="container-global">
     <form class="formulario" action="login.php" method="post">
     <label>LOGIN</label>

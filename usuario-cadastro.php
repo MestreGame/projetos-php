@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
     <title>CADASTRO DE USUARIO</title>
 </head>
-<body>
+<body class="fundo" style="background-image: url(img/fundo.avif);">
 <a href="backoffice.php"><img src='icons.old/arrowhead-left-01.png' width="16" height="16"></a>
 
     <div class="container-global">
