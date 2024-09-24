@@ -3,48 +3,76 @@ include("conectadb.php");
 include("topo.php");
 
 #VERIFICAÇÃO DO POST
-if ($_SERVER ['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $produto = $_POST['produto'];
-    //QUEBRAR A VARIAVEL PRODUTO EM 3 OUTRAS VARIAVEIS
-    list($idproduto, $nomeproduto, $valorproduto) = explode(',',$produto);
+    // QUEBRAR A VARIÁVEL PRODUTO EM 3 OUTRAS VARIÁVEIS
+    list($idproduto, $nomeproduto, $valorproduto) = explode(',', $produto);
     $qtditem = $_POST['qtditem'];
-    //CALCULAR O VALOR DOS ITENS
+    // CALCULAR O VALOR DOS ITENS
     $valorlista = $valorproduto * $_POST['qtditem'];
-
-    #VERIFICAÇÃO SE O CARRINHO ESTA ABERTO
-    $sql = "SELECT COUNT(iv_status) FROM  tb_item_venda WHERE iv_status = 1";
-    $retorno = mysqli_query($link,$sql); 
-
-    while ($tbl = mysqli_fetch_array($retorno)){
-        $cont = $tbl[0];
     
-        #SE NÃO EXISTIR CARRINHO ABERTO, CRIA UM NOVO
-            if ($cont == 0){
-            //CRIA O CODIGO ITEM_VENDA
-            $codigo_itemvenda = md5(rand(1,99999).date('h:i:s'));
+    // Inicializar $quantidade_disponivel com um valor padrão
+    //- adicionado
+    $quantidade_disponivel = 0;
 
-            //INSERINDO O ITEM NA VENDA
-            $sqlitem = "INSERT INTO tb_item_venda(iv_valortotal, iv_quantidade, iv_cod_iv, fk_pro_id, iv_status) 
-            VALUES ($valorlista,$qtditem,'$codigo_itemvenda',$idproduto,'1')";
-            //ECHO $sqlitem;
-            mysqli_query($link, $sqlitem);
-            }
-            else{ #SE CARRINHO JÁ EXISITIR, RETORNA O NUMERO IV_COD_IV ATIVO E INSERE MAIS ITENS NA VENDA
-                $sql = "SELECT iv_cod_iv FROM tb_item_venda WHERE iv_status = 1";
-                $carrinhoaberto = mysqli_query($link,$sql);
-                $tbl = mysqli_fetch_array($carrinhoaberto);
-                $codigo_itemvenda_ok = $tbl[0];
+    // Verificar a quantidade disponível no inventário
+    // - adicionado
+    $sql_check_inventory = "SELECT pro_quantidade FROM tb_produtos WHERE pro_id = $idproduto";
+    $retorno_inventory = mysqli_query($link, $sql_check_inventory);
+       //adicionado
+    if (mysqli_num_rows($retorno_inventory) > 0) {
+        $tbl_inventory = mysqli_fetch_array($retorno_inventory);
+        $quantidade_disponivel = $tbl_inventory['pro_quantidade'];
+           //adicionado
+        if ($qtditem > $quantidade_disponivel) {
+            // Se a quantidade solicitada for maior que a disponível
+            echo "Quantidade insuficiente em estoque para o produto: $nomeproduto. Disponível: $quantidade_disponivel.";
+        } else {
+            // Se houver quantidade suficiente, continua com o processo existente
+            $sql = "SELECT COUNT(iv_status) FROM tb_item_venda WHERE iv_status = 1";
+            $retorno = mysqli_query($link, $sql);
+           //adicionado
+            while ($tbl = mysqli_fetch_array($retorno)) {
+                $cont = $tbl[0];
 
-                //INSERINDO O ITEM NA VENDA
-                $sqlitem = "INSERT INTO tb_item_venda(iv_valortotal, iv_quantidade, iv_cod_iv, fk_pro_id, iv_status) 
-                VALUES ($valorlista,$qtditem,'$codigo_itemvenda_ok',$idproduto,'1')";
-                mysqli_query($link, $sqlitem);
-                
+                # SE NÃO EXISTIR CARRINHO ABERTO, CRIA UM NOVO
+                if ($cont == 0) {
+                    // CRIA O CÓDIGO ITEM_VENDA
+                    $codigo_itemvenda = md5(rand(1, 99999) . date('h:i:s'));
+
+                    // INSERINDO O ITEM NA VENDA
+                    $sqlitem = "INSERT INTO tb_item_venda(iv_valortotal, iv_quantidade, iv_cod_iv, fk_pro_id, iv_status) 
+                                VALUES ($valorlista, $qtditem, '$codigo_itemvenda', $idproduto, '1')";
+                    mysqli_query($link, $sqlitem);
+
+                    // Atualizar a quantidade do produto no inventário
+                    $nova_quantidade = $quantidade_disponivel - $qtditem;
+                    $sql_update_inventory = "UPDATE tb_produtos SET pro_quantidade = $nova_quantidade WHERE pro_id = $idproduto";
+                    mysqli_query($link, $sql_update_inventory);
+                } else {
+                    # SE CARRINHO JÁ EXISTIR, RETORNA O NUMERO IV_COD_IV ATIVO E INSERE MAIS ITENS NA VENDA
+                    $sql = "SELECT iv_cod_iv FROM tb_item_venda WHERE iv_status = 1";
+                    $carrinhoaberto = mysqli_query($link, $sql);
+                    $tbl = mysqli_fetch_array($carrinhoaberto);
+                    $codigo_itemvenda_ok = $tbl[0];
+
+                    // INSERINDO O ITEM NA VENDA
+                    $sqlitem = "INSERT INTO tb_item_venda(iv_valortotal, iv_quantidade, iv_cod_iv, fk_pro_id, iv_status) 
+                                VALUES ($valorlista, $qtditem, '$codigo_itemvenda_ok', $idproduto, '1')";
+                    mysqli_query($link, $sqlitem);
+
+                    // Atualizar a quantidade do produto no inventário
+                    $nova_quantidade = $quantidade_disponivel - $qtditem;
+                    $sql_update_inventory = "UPDATE tb_produtos SET pro_quantidade = $nova_quantidade WHERE pro_id = $idproduto";
+                    mysqli_query($link, $sql_update_inventory);
+                }
             }
+        }
+    } else {
+        // Caso o produto não seja encontrado no inventário
+        echo "Erro: Produto não encontrado no inventário.";
     }
-
 }
-
 
 #SELEÇÃO DE ITEM
 $sqlpro = "SELECT * FROM tb_produtos";
@@ -149,6 +177,8 @@ $retorno = mysqli_query($link, $sqllistapro);
 
             <label>SELECIONE O CLIENTE</label>
                     <select name='nomecliente'>
+                        <!-- PUXANDOS DADOS DO SERVIDOR E PREENCHENDO O OPTION -->
+                         <!-- <option value='vazio'> VAZIO</option -->
                         <!-- PUXAR OS NOMES DOS CLIENTES -->
                         <?php while ($tblcli = mysqli_fetch_array($retornocli)){
                         ?>
