@@ -116,7 +116,6 @@ $retorno = mysqli_query($link, $sqllistapro);
 
 <body>
     <div class="container-global">
-    <body class="fundo" style="background-image: url(img/fundo.avif);">
 
         <form class="formulario" action="vendas.php" method="post">
 
@@ -182,7 +181,8 @@ $retorno = mysqli_query($link, $sqllistapro);
 
 <!-- FORMULARIO FINAL DE ENVIO -->
     <div class="container-global">
-        <form class="formulario" action="venda_finalizar.php" method="post">
+        <form class="formulario" action="venda-finalizar.php" method="post">
+        <body class="fundo" style="background-image: url(img/fundo.avif);">
             <label>CUPOM</label>
             <input type="text" id="codigo" name='codigo' placeholder="digite o codigo do cupom" maxlength="14">
             <br>

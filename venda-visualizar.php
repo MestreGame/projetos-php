@@ -26,6 +26,7 @@ $retorno = mysqli_query($link, $sql);
 <body>
     <BR>
     <div class="container-global">
+    <body class="fundo" style="background-image: url(img/fundo.avif);">
 
         <div class="container-listaproduto">
             <table class="lista">

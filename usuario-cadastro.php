@@ -5,7 +5,10 @@ include('topo.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $login = $_POST['txtlogin'];
+    $senha = $_POST['txtsenha'];
     $email = $_POST['txtemail'];
+    $tempero = md5($login . rand());//cria um valor random para a criptografia
+    $senha = md5($tempero . $senha);//criptografia
 
     // COMEÇA VALIDAR BANCO DE DADOS
     $sql = "SELECT COUNT(usu_id) FROM tb_usuarios
@@ -18,18 +21,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     // VERIFICA SE NATAN EXISTE
     if($contagem == 1){
-        $sql = "SELECT usu_id, usu_login FROM tb_usuarios
-        WHERE usu_login = '$login'AND usu_senha = '$senha'";
-        $retorno = mysqli_query($link, $sql);
-        //RETORNANDO O NOME DO NATAN + ID DELE
-        while($tbl = mysqli_fetch_array($retorno)){
-            $_SESSION['idusuario'] = $tbl[0];
-            $_SESSION['nomeusuario'] = $tbl[1];
+        if($contagem == 0){
+            $sql = "INSERT INTO tb_usuarios(usu_login, usu_senha, usu_email, usu_status, tempero)
+            VALUES ('$login', '$senha', '$email', '1', $tempero)";
+            mysqli_query($link, $sql);
+            echo"<script>window.alert('USUARIO CADASTRADO COM SUCESSO');</script>";
+            echo"<script>window.location.href='login.php';</script>";
         }
-        echo"<script>window.location.href='backoffice.php';</script>";
-    }
-    else{
-        echo"<script>window.alert('USUARIO OU SENHA INCORRETOS');</script>";
+        else if($contagem >= 1){
+            echo"<script>window.alert('USUARIO JÁ EXISTENTE');</script>";
+        }
+    
     }
 
 }

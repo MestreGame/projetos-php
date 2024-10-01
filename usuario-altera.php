@@ -9,7 +9,9 @@ while($tbl = mysqli_fetch_array($retorno)){
     $login = $tbl[0];
     $email = $tbl[1];
     $senha = $tbl[2];
+    $senha2 = $tbl[2];//caso usuario nao altera a senha
     $status = $tbl[3];
+    $tempero = $tbl[5];//add tempero
     
 }
 // BORA FAZER O UPDATE??
@@ -18,9 +20,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $senha = $_POST['txtsenha'];
     $email = $_POST['txtemail'];
     $status = $_POST['status'];
+    $tempero= $_POST['tempero'];//add tempero 
+    $senha2 = $_POST['txtsenha2'];//add senha2
 
+    ///
+    ///verifica se a  senha foi alterada, caso refazer md5
+    if($senha2 !=$senha){
+      $senha = md5($tempero . $senha);
+    }
     $sql = "UPDATE tb_usuarios 
-    SET usu_senha = '$senha', usu_email = '$email', usu_status = '$status'
+    SET usu_senha = '$senha', usu_email = '$email', usu_status = '$status', tempero = '$tempero'
     WHERE usu_id = $id";
 
     mysqli_query($link, $sql);
@@ -48,6 +57,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <form class="formulario" action="login.php" method="post">
     <label>LOGIN</label>
     <input type="hidden" name="id" value="<?= $id?>">
+    <input type="hidden" name="id" value="<?= $tempero?>">
+    <input type="hidden" name="id" value="<?= $senha2?>">
     <input type="text" name="txtlogin"value="<?=$login?> "placeholder="Digite seu login" required>
     <br>
     <label>SENHA</label>
