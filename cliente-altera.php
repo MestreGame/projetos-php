@@ -2,20 +2,18 @@
 include('conectadb.php');
 include('topo.php');
 
-// Inicializa a variável $status para evitar o aviso
-$status = '';
-//COLETA O VALOR ID LÁ DA URL
+//COLETAR O VLOR ID LÁ DA URL
 $id = $_GET['id'];
-$sql =" SELECT  * FROM tb_clientes WHERE cli_id = '$id'";
-$retorno = mysqli_query($link,$sql);
-while($tbl = mysqli_fetch_array($retorno)){
-    $nome = $tbl[0];
-    $email = $tbl[1];
-    $cpf = $tbl[2];
-    $cel = $tbl[3];
-    $status = $tbl[4];
-    
-}
+$sql = "SELECT * FROM tb_clientes WHERE cli_id = '$id'";
+$retorno = mysqli_query($link, $sql);
+    while($tbl = mysqli_fetch_array($retorno)){
+        $cpf = $tbl[1];
+        $nome = $tbl[2];
+        $email = $tbl[3];
+        $cel = $tbl[4];
+        $status = $tbl[5];
+    }
+
 // BORA FAZER O UPDATE??
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
